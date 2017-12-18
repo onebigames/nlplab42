@@ -80,3 +80,12 @@ class EmbeddingsDictionary:
         _, neighbor_ids = self.emb2neighbors(self.emb[query_id], top_k + 1)
         neighbor_words = [self.words[i] for i in neighbor_ids if i != query_id]
         return neighbor_words
+
+    def analog(self, w1, w2, w3):
+        indexes = [self.embed(w1), self.embed(w2), self.embed(w3)]
+
+        final_vector = indexes[0] + indexes[1] - indexes[2]
+
+        tmp = self.emb2neighbors(final_vector, 13)[1]
+        for t in tmp:
+            print(self.words[t])
